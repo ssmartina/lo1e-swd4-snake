@@ -3,7 +3,8 @@ let ctx = canvas.getContext("2d");
 
 let snakeX = 200;
 let snakeY = 200;
-let direction = 'down';
+
+let direction = null;
 
 function drawBackground() {
     ctx.fillStyle = "black";
@@ -31,4 +32,17 @@ function update() {
     drawSnake();
 }
 
+function changeDirection(event) {
+    if(event.code == 'ArrowUp') {
+        direction = 'up';
+    } else if (event.code == 'ArrowDown') {
+        direction = 'down';
+    } else if (event.code == 'ArrowRight') {
+        direction = 'right';
+    } else if (event.code == 'ArrowLeft') {
+        direction = 'left';
+    }
+}
+
 setInterval(update, 1000);
+addEventListener('keydown', changeDirection);
