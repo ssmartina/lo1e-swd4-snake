@@ -44,5 +44,5 @@ function changeDirection(event) {
     }
 }
 
-setInterval(update, 1000);
+setInterval(update, 300);
 addEventListener('keydown', changeDirection);
