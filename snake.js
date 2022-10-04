@@ -34,9 +34,54 @@ function drawSnake() {
 
 function update() {
 
+    if(direction == null) {
+        drawBackground();
+        drawSnake();
+        drawFood();
+        return;
+    }
+
     let tailIndex = snake.length - 1;
     let tailX = snake[tailIndex].x;
     let tailY = snake[tailIndex].y;
+
+    let headX = snake[0].x;
+    let headY = snake[0].y;
+
+    
+
+    if(direction == 'right') {
+        if (headX < 380) {
+            headX += 20;
+        } else {
+            gameOver();
+        }
+    } else if(direction == 'left') {
+        if (headX > 0) {
+            headX -= 20;
+        } else {
+            gameOver();
+        }
+    } else if(direction == 'up') {
+        if (headY > 0) {
+            headY -= 20;
+        } else {
+            gameOver();
+        }
+    } else if(direction == 'down') {
+        if (headY < 380) {
+            headY += 20;
+        } else {
+            gameOver();
+        }
+    }
+
+    for (let index = 0; index < snake.length; index++) {
+        if (snake[index].x == headX && snake[index].y == headY) {
+            gameOver();
+            return
+        }
+    }
 
     if (direction != null) {
         for(let index = snake.length - 1; index > 0; index--) {
@@ -45,31 +90,8 @@ function update() {
         }
     }
 
-    if(direction == 'right') {
-        if (snake[0].x < 380) {
-            snake[0].x += 20;
-        } else {
-            gameOver();
-        }
-    } else if(direction == 'left') {
-        if (snake[0].x > 0) {
-            snake[0].x -= 20;
-        } else {
-            gameOver();
-        }
-    } else if(direction == 'up') {
-        if (snake[0].y > 0) {
-            snake[0].y -= 20;
-        } else {
-            gameOver();
-        }
-    } else if(direction == 'down') {
-        if (snake[0].y < 380) {
-            snake[0].y += 20;
-        } else {
-            gameOver();
-        }
-    }
+    snake[0].x = headX;
+    snake[0].y = headY;
 
     if (foodX == snake[0].x && snake[0].y == foodY) {
         snake.push ({
